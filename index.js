@@ -3,7 +3,7 @@ const app = express();
 const http = require('http');
 const cors = require('cors');
 const { Server } = require('socket.io'); // Add this
-
+const port=process.env.PORT||3001
 app.use(cors()); // Add cors middleware
 
 const server = http.createServer(app); // Add this
@@ -12,7 +12,7 @@ const server = http.createServer(app); // Add this
 // Create an io server and allow for CORS from http://localhost:3000 with GET and POST methods
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5173',
+    origin: 'https://pet-food-client.netlify.app',
     methods: ['GET', 'POST'],
   },
 });
@@ -34,6 +34,6 @@ io.on('connection', (socket) => {
   })
 });
 
-server.listen(3001, () => {
+server.listen(port, () => {
     console.log('Server is running on port 3001');
 });
